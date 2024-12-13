@@ -1,0 +1,81 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int studentID;
+    Node* next;
+};
+
+void insert(Node*& head, int studentID) {
+    Node* newNode = new Node{studentID, head};
+    head = newNode;
+}
+
+void display(Node* head) {
+    while (head) {
+        cout << head->studentID << " ";
+        head = head->next;
+    }
+    cout << endl;
+}
+
+Node* intersection(Node* setA, Node* setB) {
+    Node* result = nullptr;
+    while (setA) {
+        Node* tempB = setB;
+        while (tempB) {
+            if (setA->studentID == tempB->studentID) insert(result, setA->studentID);
+            tempB = tempB->next;
+        }
+        setA = setA->next;
+    }
+    return result;
+}
+
+Node* unionSet(Node* setA, Node* setB) {
+    Node* result = nullptr;
+    while (setA) { insert(result, setA->studentID); setA = setA->next; }
+    while (setB) {
+        Node* temp = result;
+        bool found = false;
+        while (temp) {
+            if (temp->studentID == setB->studentID) { found = true; break; }
+            temp = temp->next;
+        }
+        if (!found) insert(result, setB->studentID);
+        setB = setB->next;
+    }
+    return result;
+}
+
+int countNeither(Node* setA, Node* setB, int totalStudents) {
+    int count = 0;
+    for (int i = 1; i <= totalStudents; ++i) {
+        bool inA = false, inB = false;
+        Node* tempA = setA, * tempB = setB;
+        while (tempA && !inA) if (tempA->studentID == i) inA = true, tempA = tempA->next;
+        while (tempB && !inB) if (tempB->studentID == i) inB = true, tempB = tempB->next;
+        if (!inA && !inB) ++count;
+    }
+    return count;
+}
+
+int main() {
+    Node *setA = nullptr, *setB = nullptr;
+    insert(setA, 1); insert(setA, 2); insert(setA, 3); insert(setA, 5);
+    insert(setB, 3); insert(setB, 4); insert(setB, 5); insert(setB, 6);
+
+    cout << "Set A (Vanilla Lovers): "; display(setA);
+    cout << "Set B (Butterscotch Lovers): "; display(setB);
+
+    cout << "Students who like both Vanilla and Butterscotch: "; 
+    display(intersection(setA, setB));
+
+    cout << "Students who like either Vanilla or Butterscotch or both: "; 
+    display(unionSet(setA, setB));
+
+    cout << "Number of students who like neither Vanilla nor Butterscotch: " 
+         << countNeither(setA, setB, 6) << endl;
+
+    return 0;
+}

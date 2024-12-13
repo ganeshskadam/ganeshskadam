@@ -1,0 +1,32 @@
+student_list=[10,40,45,67,89,34,56,78,73,90,1,37]
+
+def linear_search(student_list,key):
+    for i in range(len(student_list)):
+        if student_list[i] == key:
+            return i
+    return -1
+
+index = linear_search(student_list,40)
+if index==-1:
+    print("element not found")
+else:
+    print("element found at index(linear)", index)
+
+def sentinal_search(student_list,key):
+    last=student_list[-1]
+    student_list[-1]=key
+    i=0
+    while student_list[i] != key:
+        i += 1
+    if i != len(student_list)-1:
+        return i
+    else:
+        if last == key:
+            return len(student_list) - 1
+    return -1
+
+index = sentinal_search(student_list,37)
+if index==-1:
+    print("element not found")
+else:
+    print("element found at index(sentinal)", index)

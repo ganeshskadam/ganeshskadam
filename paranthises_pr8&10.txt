@@ -1,0 +1,61 @@
+#include<iostream>
+using namespace std;
+#define size 30
+
+int main() {
+    char stk[size], exp[size], ans;
+    int top;
+    
+    do {
+        top = -1;
+        cout << "Enter the expression\t";
+        cin >> exp;
+        
+        for (int i = 0; exp[i] != '\0'; i++) {
+            if (exp[i] == '(' || exp[i] == '[' || exp[i] == '{') {
+                top++;
+                stk[top] = exp[i];
+            }
+            else if (exp[i] == ')') {
+                if (stk[top] == '(') {
+                    top--;
+                }
+                else {
+                    cout << "Given expression is not well parenthesized" << endl;
+                    return 0;
+                }
+            }
+            else if (exp[i] == ']') {
+                if (stk[top] == '[') {
+                    top--;
+                }
+                else {
+                    cout << "Given expression is not well parenthesized" << endl;
+                    return 0;
+                }
+            }
+            else if (exp[i] == '}') {
+                if (stk[top] == '{') {
+                    top--;
+                }
+                else {
+                    cout << "Given expression is not well parenthesized" << endl;
+                    return 0;
+                }
+            }
+        }
+        
+        if (top == -1) {
+            cout << "Given Expression is well Parenthesized" << endl;
+        }
+        else {
+            cout << "Given expression is not well parenthesized" << endl;
+        }
+        
+        cout << "Do You Want to continue??\t";
+        cin >> ans;
+        
+    } while (ans == 'y');
+    
+    return 0;
+}

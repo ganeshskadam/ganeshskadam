@@ -1,0 +1,20 @@
+def main():
+    from collections import Counter
+
+    all_students = {"Amit", "Priya", "Rahul", "Sneha", "Arjun", "Neha", "Karan", "Pooja", "Rohan", "Aarti"}
+    marks = {"Amit": 85, "Priya": 78, "Rahul": 92, "Sneha": 85, "Arjun": 76, "Neha": 0, "Karan": 0, "Pooja": 85, "Rohan": 0}
+
+    scores = [mark for mark in marks.values() if mark > 0]
+    average_score = sum(scores) / len(scores)
+    highest_score, lowest_score = max(scores), min(scores)
+    absent_count = len(all_students) - len(marks)
+    highest_frequency_marks = [mark for mark, freq in Counter(scores).items() if freq == max(Counter(scores).values())]
+
+    print("Average score of class:", average_score)
+    print("Highest score of class:", highest_score)
+    print("Lowest score of class:", lowest_score)
+    print("Count of students who were absent for the test:", absent_count)
+    print("Marks with highest frequency:", highest_frequency_marks)
+
+if __name__ == "__main__":
+    main()

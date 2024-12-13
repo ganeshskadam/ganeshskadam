@@ -1,0 +1,32 @@
+bank_balance = 0
+
+def dep(amnt):
+    global bank_balance
+    bank_balance += amnt
+    return bank_balance
+
+def wid(amnt):
+    global bank_balance
+    if bank_balance >= amnt:
+        bank_balance -= amnt
+        return bank_balance
+    else:
+        print("Not enough money to withdraw")
+
+trans_log = input("Enter the transaction log: ")
+print("Transaction log:", trans_log)
+
+entry_list = trans_log.split(', ')
+print("Entry list:", entry_list)
+
+for entry in entry_list:
+    sep_entrylist = entry.split(' ')
+    op = sep_entrylist[0]
+    amnt = int(sep_entrylist[1])
+
+    if op == 'D':
+        dep(amnt)
+    elif op == 'W':
+        wid(amnt)
+
+print("Bank Balance:", bank_balance)
